@@ -1,9 +1,10 @@
-using System;
+using System.Collections.Generic;
+using UnityEngine;
 public abstract class Node
 {
     private List<Node> _childrenNodeList;
 
-    public List<Node> ChildrenNodeList {get => childrenNodeList;}
+    public List<Node> ChildrenNodeList {get => _childrenNodeList;}
 
     public bool Visited{get; set;}
     public Vector2Int BottomLeftAreaCorner {get;set;}

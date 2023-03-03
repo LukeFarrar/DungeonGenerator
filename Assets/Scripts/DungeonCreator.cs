@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class DungeonCreator : MonoBehaviour
 {
-    public int dungeonWidth, dungeonLength, dungeonHeight;
-    public int roomWidth_min, roomLength_min, roomHeight_min;
+    public int dungeonWidth, dungeonLength;
+    public int roomWidth_min, roomLength_min;
     public int iterations_max;
     public int corridoorWidth;
 
@@ -17,7 +17,7 @@ public class DungeonCreator : MonoBehaviour
 
     private void CreateDungeon()
     {
-        DungeonGenerator generator = new DungeonGenerator(dungeonWidth, dungeonLength, dungeonHeight);
+        DungeonGenerator generator = new DungeonGenerator(dungeonWidth, dungeonLength);
         var listOfRooms = generator.CalculateRooms(iterations_max, roomWidth_min, roomLength_min);
 
     }
