@@ -67,7 +67,8 @@ public class CorridorNode : Node
                 child.TopLeftAreaCorner,
                 child.BottomLeftAreaCorner
                 ) != -1
-            ).ToList();
+            ).OrderBy(child => child.BottomRightAreaCorner.x).ToList();
+
         if (possibleNeighboursInRightStructureList.Count <= 0)
         {
             rightStructure = structure2;
@@ -225,11 +226,11 @@ public class CorridorNode : Node
         {
             return RelativePosition.Right;
         }
-        else if (angle > 45 && angle < 135)
+        else if(angle > 45 && angle < 135)
         {
             return RelativePosition.Up;
         }
-        else if ((angle > -135 && angle < -45))
+        else if(angle > -135 && angle < -45)
         {
             return RelativePosition.Down;
         }

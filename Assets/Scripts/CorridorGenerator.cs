@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-public class CorridorGenerator
+public class CorridorsGenerator
 {
     public List<Node> CreateCorridor(List<RoomNode> allNodesCollection, int corridorWidth)
     {

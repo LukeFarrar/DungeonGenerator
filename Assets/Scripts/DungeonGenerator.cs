@@ -26,7 +26,7 @@ public class DungeonGenerator
         RoomGenerator roomGenerator = new RoomGenerator(maxIterations, roomLengthMin, roomWidthMin);
         List<RoomNode> roomList = roomGenerator.GenerateRoomsInGivenSpaces(roomSpaces, roomBottomCornerModifier, roomTopCornerMidifier, roomOffset);
 
-        CorridorGenerator corridorGenerator = new CorridorGenerator();
+        CorridorsGenerator corridorGenerator = new CorridorsGenerator();
         var corridorList = corridorGenerator.CreateCorridor(allNodesCollection, corridorWidth);
         
         return new List<Node>(roomList).Concat(corridorList).ToList();
