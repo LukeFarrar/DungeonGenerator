@@ -5,7 +5,7 @@ public class RoomNode : Node
     {
         this.BottomLeftAreaCorner = bottomLeftAreaCorner;
         this.TopRightAreaCorner = topRightAreaCorner;
-        this.BottomRtghtAreaCorner = new Vector2Int(topRightAreaCorner.x, bottomLeftAreaCorner.y);
+        this.BottomRightAreaCorner = new Vector2Int(topRightAreaCorner.x, bottomLeftAreaCorner.y);
         this.TopLeftAreaCorner = new Vector2Int(bottomLeftAreaCorner.x, topRightAreaCorner.y);
         this.TreeLayerIndex = index;
     }

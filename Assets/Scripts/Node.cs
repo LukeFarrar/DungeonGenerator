@@ -8,7 +8,7 @@ public abstract class Node
 
     public bool Visited{get; set;}
     public Vector2Int BottomLeftAreaCorner {get;set;}
-    public Vector2Int BottomRtghtAreaCorner {get;set;}
+    public Vector2Int BottomRightAreaCorner {get;set;}
     public Vector2Int TopRightAreaCorner {get; set;}
     public Vector2Int TopLeftAreaCorner {get; set;}
 
