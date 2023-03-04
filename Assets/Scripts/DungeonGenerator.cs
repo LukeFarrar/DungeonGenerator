@@ -1,26 +1,34 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
-
 public class DungeonGenerator
 {
-    private List<RoomNode> allSpaceNodes = new List<RoomNode>();
+    
+    List<RoomNode> allNodesCollection = new List<RoomNode>();
     private int dungeonWidth;
     private int dungeonLength;
 
-    public DungeonGenerator(int dungeonWidth, int dungeonLength){
+    public DungeonGenerator(int dungeonWidth, int dungeonLength)
+    {
         this.dungeonWidth = dungeonWidth;
         this.dungeonLength = dungeonLength;
     }
 
-    public List<Node> CalculateRooms(int iterations_max, int roomWidth_min, int roomLength_min)
+
+
+    public List<Node> CalculateDungeon(int maxIterations, int roomWidthMin, int roomLengthMin, float roomBottomCornerModifier, float roomTopCornerMidifier, int roomOffset, int corridorWidth)
     {
         BinarySpacePartitioner bsp = new BinarySpacePartitioner(dungeonWidth, dungeonLength);
-        allSpaceNodes = bsp.PrepareNodesCollection(iterations_max, roomWidth_min,roomLength_min);
-        List<Node> roomSpaces = StructureHelper.TraverseGraphToExtractLowestLeaves(bsp.RootNode);
-        
-        RoomGenerator roomGenerator = new RoomGenerator(iterations_max, roomLength_min, roomWidth_min);
-        List<RoomNode> roomList = roomGenerator.GenerateRoomsInGivenSpace(roomSpaces);
+        allNodesCollection = bsp.PrepareNodesCollection(maxIterations, roomWidthMin, roomLengthMin);
+        List<Node> roomSpaces = StructureHelper.TraverseGraphToExtractLowestLeafes(bsp.RootNode);
 
-        return new List<Node>(roomList);
+        RoomGenerator roomGenerator = new RoomGenerator(maxIterations, roomLengthMin, roomWidthMin);
+        List<RoomNode> roomList = roomGenerator.GenerateRoomsInGivenSpaces(roomSpaces, roomBottomCornerModifier, roomTopCornerMidifier, roomOffset);
+
+        CorridorGenerator corridorGenerator = new CorridorGenerator();
+        var corridorList = corridorGenerator.CreateCorridor(allNodesCollection, corridorWidth);
+        
+        return new List<Node>(roomList).Concat(corridorList).ToList();
     }
 }

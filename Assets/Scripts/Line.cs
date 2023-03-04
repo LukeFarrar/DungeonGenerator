@@ -6,8 +6,8 @@ public class Line
 
     public Line(Orientation orientation, Vector2Int coordinates)
     {
-        this.Orientation = orientation;
-        this.Coordinates = coordinates;
+        this.orientation = orientation;
+        this.coordinates = coordinates;
     }
 
     public Orientation Orientation { get => orientation; set => orientation = value; }

@@ -1,26 +1,28 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 public abstract class Node
 {
-    private List<Node> _childrenNodeList;
+    private List<Node> childrenNodeList;
 
-    public List<Node> ChildrenNodeList {get => _childrenNodeList;}
+    public List<Node> ChildrenNodeList { get => childrenNodeList;}
 
-    public bool Visited{get; set;}
-    public Vector2Int BottomLeftAreaCorner {get;set;}
-    public Vector2Int BottomRightAreaCorner {get;set;}
-    public Vector2Int TopRightAreaCorner {get; set;}
-    public Vector2Int TopLeftAreaCorner {get; set;}
+    public bool Visted { get; set; }
+    public Vector2Int BottomLeftAreaCorner { get; set; }
+    public Vector2Int BottomRightAreaCorner { get; set; }
+    public Vector2Int TopRightAreaCorner { get; set; }
+    public Vector2Int TopLeftAreaCorner { get; set; }
 
-    public int TreeLayerIndex{get; set;}
+    public Node Parent { get; set; }
 
-    public Node Parent {get; set;}
+
+    public int TreeLayerIndex { get; set; }
 
     public Node(Node parentNode)
     {
-        _childrenNodeList = new List<Node>();
+        childrenNodeList = new List<Node>();
         this.Parent = parentNode;
-        if(parentNode != null)
+        if (parentNode != null)
         {
             parentNode.AddChild(this);
         }
@@ -28,10 +30,12 @@ public abstract class Node
 
     public void AddChild(Node node)
     {
-        _childrenNodeList.Add(node);
+        childrenNodeList.Add(node);
+
     }
 
-    public void RemoveChild(Node node){
-        _childrenNodeList.Remove(node);
+    public void RemoveChild(Node node)
+    {
+        childrenNodeList.Remove(node);
     }
 }

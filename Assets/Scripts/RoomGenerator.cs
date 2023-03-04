@@ -4,31 +4,34 @@ using UnityEngine;
 
 public class RoomGenerator
 {
-    private int iterations_max;
-    private int roomLength_min;
-    private int roomWidth_min;
-    public RoomGenerator(int iterations_max, int roomLength_min, int roomWidth_min)
+    private int maxIterations;
+    private int roomLengthMin;
+    private int roomWidthMin;
+
+    public RoomGenerator(int maxIterations, int roomLengthMin, int roomWidthMin)
     {
-        this.iterations_max = iterations_max;
-        this.roomLength_min = roomLength_min;
-        this.roomWidth_min = roomWidth_min;
+        this.maxIterations = maxIterations;
+        this.roomLengthMin = roomLengthMin;
+        this.roomWidthMin = roomWidthMin;
     }
 
-    public List<RoomNode> GenerateRoomsInGivenSpace(List<Node> roomSpaces)
+    public List<RoomNode> GenerateRoomsInGivenSpaces(List<Node> roomSpaces, float roomBottomCornerModifier, float roomTopCornerMidifier, int roomOffset)
     {
-        List<RoomNode> listToReturn  = new List<RoomNode>();
-        
-        foreach(var space in roomSpaces)
+        List<RoomNode> listToReturn = new List<RoomNode>();
+        foreach (var space in roomSpaces)
         {
-            Vector2Int newBottomLeftPoint = StructureHelper.GenerateBottomLeftCornerBetween(space.BottomLeftAreaCorner, space.TopRightAreaCorner, 0.1f, 1);
-            Vector2Int newTopRightPoint = StructureHelper.GenerateTopRightCornerBetween(space.BottomLeftAreaCorner, space.TopRightAreaCorner, 0.9f, 1);
+            Vector2Int newBottomLeftPoint = StructureHelper.GenerateBottomLeftCornerBetween(
+                space.BottomLeftAreaCorner, space.TopRightAreaCorner, roomBottomCornerModifier, roomOffset);
+
+            Vector2Int newTopRightPoint = StructureHelper.GenerateTopRightCornerBetween(
+                space.BottomLeftAreaCorner, space.TopRightAreaCorner, roomTopCornerMidifier, roomOffset);
             space.BottomLeftAreaCorner = newBottomLeftPoint;
             space.TopRightAreaCorner = newTopRightPoint;
             space.BottomRightAreaCorner = new Vector2Int(newTopRightPoint.x, newBottomLeftPoint.y);
-            space.TopRightAreaCorner = new Vector2Int(newBottomLeftPoint.y, newTopRightPoint.y);
+            space.TopLeftAreaCorner = new Vector2Int(newBottomLeftPoint.x, newTopRightPoint.y);
             listToReturn.Add((RoomNode)space);
+                
         }
-
         return listToReturn;
     }
 }
